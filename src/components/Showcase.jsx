@@ -23,15 +23,34 @@ export default function Showcase() {
           {projects.map((p, i) => (
             <motion.div
               key={p.title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 16, rotate: -0.5 }}
+              whileInView={{ opacity: 1, y: 0, rotate: 0 }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06]"
+              transition={{ duration: 0.55, delay: i * 0.08 }}
+              className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] group"
             >
-              <div className="h-28 rounded-xl" style={{ background: `linear-gradient(135deg, ${p.color}55, transparent)` }} />
-              <h3 className="mt-4 text-lg font-semibold text-white">{p.title}</h3>
-              <p className="mt-1 text-sm text-white/70">{p.tag}</p>
+              <motion.div
+                className="h-28 rounded-xl"
+                style={{ background: `linear-gradient(135deg, ${p.color}55, transparent)` }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+              />
+              <div className="mt-4 flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-white">{p.title}</h3>
+                <motion.span
+                  className="text-xs text-white/60"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                >
+                  {p.tag}
+                </motion.span>
+              </div>
+              <motion.div
+                initial={{ x: '-100%' }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.4 }}
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-pink-500/60 to-transparent"
+              />
             </motion.div>
           ))}
         </div>
